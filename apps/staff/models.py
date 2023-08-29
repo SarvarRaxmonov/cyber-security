@@ -26,10 +26,6 @@ class Position(models.Model):
 
 
 class Responsibility(models.Model):
-    POSITION = "position"
-    DEPARTMENT = "department"
-    COMPANY = "company"
-
     class ResponsibilityType(models.TextChoices):
         POSITION = "position", "Position"
         DEPARTMENT = "department", "Department"
