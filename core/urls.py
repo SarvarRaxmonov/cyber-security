@@ -1,12 +1,16 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from .schema import swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # path("common/", include("apps.common.urls")),
+    # path("news/", include("apps.news.urls")),
+    # path("staff/", include("apps.staff.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
 ]
 
 urlpatterns += swagger_urlpatterns

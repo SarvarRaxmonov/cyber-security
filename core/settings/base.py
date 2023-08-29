@@ -47,12 +47,16 @@ DJANGO_APPS = [
 
 CUSTOM_APPS = [
     "apps.common",
+    "apps.staff",
+    "apps.news",
 ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    "phonenumber_field",
+    "ckeditor",
 ]
 
 REST_FRAMEWORK = {
@@ -104,14 +108,18 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": env.str("DB_ENGINE"),
+    #     "NAME": env.str("DB_NAME"),
+    #     "USER": env.str("DB_USER"),
+    #     "PASSWORD": env.get_value("DB_PASSWORD"),
+    #     "HOST": env.str("DB_HOST"),
+    #     "PORT": env.str("DB_PORT"),
+    #     "ATOMIC_REQUESTS": True,
+    # }
     "default": {
-        "ENGINE": env.str("DB_ENGINE"),
-        "NAME": env.str("DB_NAME"),
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.get_value("DB_PASSWORD"),
-        "HOST": env.str("DB_HOST"),
-        "PORT": env.str("DB_PORT"),
-        "ATOMIC_REQUESTS": True,
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -150,7 +158,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = (BASE_DIR / "staticfiles",)
-
+CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
