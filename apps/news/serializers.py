@@ -20,6 +20,7 @@ class CategoryNewsSerializer(serializers.ModelSerializer):
         fields = (
             "title",
             "cover",
+            "category",
             "created_at",
             "updated_at",
         )
@@ -32,6 +33,7 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = (
             "title",
+            "slug",
             "author",
             "category",
             "content",
