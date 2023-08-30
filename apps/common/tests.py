@@ -37,7 +37,10 @@ class ServiceListViewTest(APITestCase):
 
 class GetHackedCreateViewTest(APITestCase):
     def setUp(self):
-        self.report = {"phone_number": "+998946643023", "site": "https://pypi.org/project/django-filter/"}
+        self.report = {
+            "phone_number": "+998946643023",
+            "site": "https://pypi.org/project/django-filter/",
+        }
         self.url = reverse("get-hacked")
 
     def test_list_services(self):
@@ -50,10 +53,21 @@ class GetHackedCreateViewTest(APITestCase):
 class DocumentListViewTest(APITestCase):
     def setUp(self):
         self.category = Category.objects.create(name="nimadir")
-        self.document = Document.objects.create(name="partner", category=self.category, file="test_file.txt", number_order="bb2323", description="Partner site")
+        self.document = Document.objects.create(
+            name="partner",
+            category=self.category,
+            file="test_file.txt",
+            number_order="bb2323",
+            description="Partner site",
+        )
         self.url = reverse("documents-list")
 
-    def test_list_services(self):
+    def test_list_documents(self):
         response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+
+    def test_list_documents_categries(self):
+        response = self.client.get(reverse("documents-categories-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 1)
