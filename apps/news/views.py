@@ -2,12 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, generics
 
 from apps.news.models import News
-from apps.news.serializers import (
-    CategoryNewsSerializer,
-    MainNewsSerializer,
-    NewsSerializer,
-    RecommendNewsSerializer
-)
+from apps.news.serializers import (CategoryNewsSerializer, MainNewsSerializer,
+                                   NewsSerializer, RecommendNewsSerializer)
+
 
 class NewsListAPIView(generics.ListAPIView):
     serializer_class = MainNewsSerializer
@@ -19,6 +16,9 @@ class NewsListAPIView(generics.ListAPIView):
 
 class CategoryNewsAPIView(generics.ListAPIView):
     serializer_class = CategoryNewsSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["title", "tag"]
+    search_fields = ["title"]
 
     def get_queryset(self):
         pk = self.kwargs.get("pk", None)
