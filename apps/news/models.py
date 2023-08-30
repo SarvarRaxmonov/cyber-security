@@ -1,4 +1,5 @@
 import uuid
+from autoslug import AutoSlugField
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -18,6 +19,7 @@ class News(models.Model):
         ARCHIVED = "archived", "Archived"
 
     title = models.CharField(max_length=100)
+    slug = AutoSlugField(populate_from="title", unique=True, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField("Category")
     content = RichTextUploadingField()

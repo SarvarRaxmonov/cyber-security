@@ -1,6 +1,5 @@
-from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
+from rest_framework import filters, generics
 
 from apps.news.models import News
 from apps.news.serializers import CategoryNewsSerializer, MainNewsSerializer
@@ -20,3 +19,6 @@ class CategoryNewsAPIView(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get("pk", None)
         return News.objects.filter(category=pk)
+#
+# class NewsDetailAPIView(generics.ListAPIView):
+# #
