@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Category, Document, GetHackedReport, Message, Service, Site
+from .models import (Category, Document, GetHackedReport, Message, Service,
+                     Site, Tag)
 
 
 @admin.register(Service)
@@ -37,5 +38,11 @@ class DocumentAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ("fullname", "phone_number", "text")
-    search_fields = ("fullname", "phone_number")
+    list_display = ("fullname", "phone_number", "text", "type")
+    search_fields = ("type", "phone_number")
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
