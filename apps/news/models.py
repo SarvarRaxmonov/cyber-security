@@ -1,5 +1,6 @@
 import uuid
 
+from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
@@ -18,21 +19,22 @@ class News(models.Model):
         ARCHIVED = "archived", "Archived"
 
     title = models.CharField(max_length=100)
+    slug = AutoSlugField(populate_from="title", unique=True, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField("Category")
-    content = RichTextUploadingField()
-    cover = models.ImageField(upload_to="covers/")
-    description = RichTextField()
-    type = models.CharField(max_length=20, choices=NewsTypes.choices)
+    category = models.ManyToManyField("Category", blank=True, null=True)
+    content = RichTextUploadingField(blank=True, null=True)
+    cover = models.ImageField(upload_to="covers/", blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
+    type = models.CharField(max_length=20, choices=NewsTypes.choices, blank=True, null=True)
     is_recommended = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, choices=StatusChoices.choices)
-    tag = models.ManyToManyField("Tag")
+    status = models.CharField(max_length=20, choices=StatusChoices.choices, blank=True, null=True)
+    tag = models.ManyToManyField("Tag", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class NewsView(models.Model):
-    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="views")
     device_id = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
