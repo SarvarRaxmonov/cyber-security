@@ -3,6 +3,28 @@ from rest_framework import serializers
 from .models import Category, News, NewsView, Tag
 
 
+class MainNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = (
+            "title",
+            "cover",
+            "created_at",
+            "updated_at",
+        )
+
+
+class CategoryNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = (
+            "title",
+            "cover",
+            "created_at",
+            "updated_at",
+        )
+
+
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
