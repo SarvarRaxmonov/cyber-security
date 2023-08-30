@@ -8,15 +8,9 @@ from .models import Category, Document, Service, Site, Tag
 
 class SiteListViewTest(APITestCase):
     def setUp(self):
-        self.site1 = Site.objects.create(
-            type="partner", url="http://example.com", description="Partner site"
-        )
-        self.site2 = Site.objects.create(
-            type="resource", url="http://example.org", description="Resource site"
-        )
-        self.site2 = Site.objects.create(
-            type="our company", url="http://example.org", description="Resource site"
-        )
+        self.site1 = Site.objects.create(type="partner", url="http://example.com", description="Partner site")
+        self.site2 = Site.objects.create(type="resource", url="http://example.org", description="Resource site")
+        self.site2 = Site.objects.create(type="our company", url="http://example.org", description="Resource site")
         self.url = reverse("site-list")
 
     def test_list_sites(self):
@@ -27,9 +21,7 @@ class SiteListViewTest(APITestCase):
 
 class ServiceListViewTest(APITestCase):
     def setUp(self):
-        self.service = Service.objects.create(
-            name="partner", description="Partner site"
-        )
+        self.service = Service.objects.create(name="partner", description="Partner site")
         self.url = reverse("service-list")
 
     def test_list_services(self):
@@ -38,9 +30,7 @@ class ServiceListViewTest(APITestCase):
         self.assertEqual(response.data["count"], 1)
 
     def test_detail_service(self):
-        response = self.client.get(
-            reverse("service-retrieve", kwargs={"pk": self.service.pk})
-        )
+        response = self.client.get(reverse("service-retrieve", kwargs={"pk": self.service.pk}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["name"], self.service.name)
         self.assertEqual(response.data["description"], self.service.description)
@@ -63,9 +53,7 @@ class GetHackedCreateViewTest(APITestCase):
 
 class DocumentListViewTest(APITestCase):
     def setUp(self):
-        self.uploaded_file = SimpleUploadedFile(
-            "test_file.txt", b"Test content for the file", content_type="text/plain"
-        )
+        self.uploaded_file = SimpleUploadedFile("test_file.txt", b"Test content for the file", content_type="text/plain")
         self.category = Category.objects.create(name="nimadir")
         self.document = Document.objects.create(
             name="partner",

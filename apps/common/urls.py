@@ -1,15 +1,9 @@
 from django.urls import path
 
-from .views import (
-    DocumentCategoryListView,
-    DocumentListView,
-    FrequentAskedQuestionsListView,
-    GetHackedCreateView,
-    MessageCreateView,
-    MessageTagsListView,
-    ServiceListView,
-    SiteListView,
-)
+from .views import (DocumentCategoryListView, DocumentListView,
+                    FrequentAskedQuestionsListView, GetHackedCreateView,
+                    MessageCreateView, MessageTagsListView, ServiceListView,
+                    SiteListView)
 
 urlpatterns = [
     path("sites/", SiteListView.as_view(), name="site-list"),

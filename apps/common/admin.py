@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Category, Document, GetHackedReport, Message, Service, Site, Tag
+from .models import (Category, Document, GetHackedReport, Message, Service,
+                     Site, Tag)
 
 
 @admin.register(Service)

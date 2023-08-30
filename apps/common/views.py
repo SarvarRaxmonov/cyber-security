@@ -2,16 +2,11 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 
-from .models import Category, Document, GetHackedReport, Message, Service, Site, Tag
-from .serializers import (
-    CategorySerializer,
-    DocumentSerializer,
-    GetHackedReportSerializer,
-    MessageSerializer,
-    ServiceSerializer,
-    SiteSerializer,
-    TagSerializer,
-)
+from .models import (Category, Document, GetHackedReport, Message, Service,
+                     Site, Tag)
+from .serializers import (CategorySerializer, DocumentSerializer,
+                          GetHackedReportSerializer, MessageSerializer,
+                          ServiceSerializer, SiteSerializer, TagSerializer)
 
 
 class SiteListView(generics.ListAPIView):

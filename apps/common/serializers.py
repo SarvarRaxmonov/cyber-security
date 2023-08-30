@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from .models import Category, Document, GetHackedReport, Message, Service, Site, Tag
+from .models import (Category, Document, GetHackedReport, Message, Service,
+                     Site, Tag)
 
 
 class ServiceSerializer(serializers.ModelSerializer):
