@@ -99,8 +99,6 @@ class VacancyViewSerializer(serializers.ModelSerializer):
 
 
 class ResumeSerializer(serializers.ModelSerializer):
-    vacancy = VacancySerializer()
-
     class Meta:
         model = Resume
         fields = ("vacancy", "phone_number", "file")
