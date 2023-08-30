@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "phonenumber_field",
     "ckeditor",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {
