@@ -1,9 +1,15 @@
 from django.urls import path
 
-from .views import (DocumentCategoryListView, DocumentListView,
-                    FrequentAskedQuestionsListView, GetHackedCreateView,
-                    MessageCreateView, MessageTagsListView, ServiceListView,
-                    SiteListView)
+from .views import (
+    DocumentCategoryListView,
+    DocumentListView,
+    FrequentAskedQuestionsListView,
+    GetHackedCreateView,
+    MessageCreateView,
+    MessageTagsListView,
+    ServiceListView,
+    SiteListView,
+)
 
 urlpatterns = [
     path("sites/", SiteListView.as_view(), name="site-list"),
@@ -22,5 +28,5 @@ urlpatterns = [
         FrequentAskedQuestionsListView.as_view(),
         name="frequently_asked_questions_list",
     ),
-    path("message_tags_list/", MessageTagsListView.as_view(), name="message-tags-list/"),
+    path("message_tags_list/", MessageTagsListView.as_view(), name="message-tags-list"),
 ]

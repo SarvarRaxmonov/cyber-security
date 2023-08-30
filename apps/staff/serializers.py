@@ -1,8 +1,17 @@
 from rest_framework import serializers
 
-from .models import (Center, CenterManagement, Department, Position,
-                     Responsibility, Resume, SubDepartment, Vacancy,
-                     VacancyView, WorkingType)
+from .models import (
+    Center,
+    CenterManagement,
+    Department,
+    Position,
+    Responsibility,
+    Resume,
+    SubDepartment,
+    Vacancy,
+    VacancyView,
+    WorkingType,
+)
 
 # ----------------------------------------------------------------
 
