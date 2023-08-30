@@ -26,6 +26,8 @@ class CategoryNewsSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
+    views_count = serializers.SerializerMethodField()
+
     class Meta:
         model = News
         fields = (
@@ -39,6 +41,21 @@ class NewsSerializer(serializers.ModelSerializer):
             "is_recommended",
             "status",
             "tag",
+            "views_count",
+            "created_at",
+            "updated_at",
+        )
+
+    def get_views_count(self, obj):
+        return obj.views.count()
+
+
+class RecommendNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = (
+            "title",
+            "cover",
             "created_at",
             "updated_at",
         )

@@ -1,6 +1,6 @@
 import uuid
-from autoslug import AutoSlugField
 
+from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
@@ -34,7 +34,7 @@ class News(models.Model):
 
 
 class NewsView(models.Model):
-    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="views")
     device_id = models.UUIDField(default=uuid.uuid4, editable=False)
 
 
