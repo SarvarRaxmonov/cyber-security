@@ -9,6 +9,7 @@ from apps.news.serializers import (
     RecommendNewsSerializer
 )
 
+
 class NewsListAPIView(generics.ListAPIView):
     serializer_class = MainNewsSerializer
     queryset = News.objects.all()
@@ -19,6 +20,9 @@ class NewsListAPIView(generics.ListAPIView):
 
 class CategoryNewsAPIView(generics.ListAPIView):
     serializer_class = CategoryNewsSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["title", "tag"]
+    search_fields = ["title"]
 
     def get_queryset(self):
         pk = self.kwargs.get("pk", None)
