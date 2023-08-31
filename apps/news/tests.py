@@ -1,13 +1,14 @@
-from rest_framework.test import APITestCase
-from rest_framework import status
-from django.urls import reverse
-from apps.news.models import News, Category
 from django.contrib.auth.models import User
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+
+from apps.news.models import Category, News
+
 from .views import NewsListAPIView
 
 
 class NewsListAPITestCase(APITestCase):
-
     def test_news_list(self):
         response = self.client.get(reverse("news"))
 
@@ -15,7 +16,6 @@ class NewsListAPITestCase(APITestCase):
 
 
 class NewsDetailAPITestCase(APITestCase):
-
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="testuser")
         self.news = News.objects.create(title="Testnews", author=self.user)
@@ -32,7 +32,6 @@ class NewsDetailAPITestCase(APITestCase):
 
 
 class CategoryNewsAPITestCase(APITestCase):
-
     def setUp(self):
         self.category = Category.objects.create(name="TestCategory")
         self.user = User.objects.create_user(username="testuser", password="testuser")
@@ -48,4 +47,3 @@ class CategoryNewsAPITestCase(APITestCase):
         self.assertEqual(response.data["count"], 1)
         category_ids = response.data["results"][0]["category"]
         self.assertIn(self.category.id, category_ids)
-

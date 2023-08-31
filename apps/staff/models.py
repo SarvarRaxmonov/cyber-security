@@ -47,7 +47,7 @@ class CenterManagement(models.Model):
     working_time = models.CharField(max_length=200)
     responsibility = models.ManyToManyField(Responsibility)
     biography = RichTextField()
-    officials = models.ManyToManyField("self", symmetrical=False,blank=True)
+    officials = models.ManyToManyField("self", symmetrical=False, blank=True)
 
 
 class Vacancy(models.Model):
