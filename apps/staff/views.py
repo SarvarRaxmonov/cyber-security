@@ -1,8 +1,9 @@
 from rest_framework import generics
-
-from apps.staff.models import CenterManagement, Vacancy, Resume
-from apps.staff.serializers import CenterManagementSerializer, VacancySerializer, ResumeSerializer
 from rest_framework.parsers import FormParser, MultiPartParser
+
+from apps.staff.models import CenterManagement, Resume, Vacancy
+from apps.staff.serializers import (CenterManagementSerializer,
+                                    ResumeSerializer, VacancySerializer)
 
 
 class CenterManagementListAPIView(generics.ListAPIView):
