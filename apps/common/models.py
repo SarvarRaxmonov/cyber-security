@@ -84,7 +84,7 @@ class Message(models.Model):
     )
     phone_number = PhoneNumberField()
     text = models.TextField()
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
     def __str__(self):
         return self.fullname
