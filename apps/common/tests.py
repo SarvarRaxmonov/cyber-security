@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import Category, Document, Service, Site, Tag
+from .models import Category, Document, Message, Service, Site, Tag
 
 
 class SiteListViewTest(APITestCase):
@@ -77,7 +77,19 @@ class DocumentListViewTest(APITestCase):
 
 class MessageTest(APITestCase):
     def setUp(self):
-        self.tag1 = Tag.objects.create(name="tag1")
+        data = {
+            "fullname": "Example",
+            "phone_number": "+998946643023",
+            "type": "question",
+            "text": "This is a test message.",
+        }
+        url = reverse("message")
+        response = self.client.post(url, data)
+        obj = Message.objects.get(fullname=data["fullname"])
+        tag1 = Tag.objects.create(name="tag1")
+        obj.tags.clear()
+        obj.tags.add(tag1)
+        obj.save()
 
     def test_message_tags_list(self):
         url = reverse("message-tags-list")
@@ -85,10 +97,7 @@ class MessageTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 1)
 
-    # def test_frequent_asked_questions_list(self):
-    #
-    #     obj = Message.objects.all()
-    #     print(obj)
-    #     url_2 = reverse("frequently_asked_questions_list")
-    #     response = self.client.get(url_2)
-    #     self.assertEqual(response.data["count"], 1)
+    def test_frequent_asked_questions_list(self):
+        url_2 = reverse("frequently_asked_questions_list")
+        response = self.client.get(url_2)
+        self.assertEqual(response.data["count"], 1)
