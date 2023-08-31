@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
-
-from apps.news.models import Category, News
+from rest_framework.test import APITestCase 
+from apps.news.models import Category, News, Tag
 
 from .views import NewsListAPIView
 
@@ -18,6 +17,8 @@ class NewsListAPITestCase(APITestCase):
 class NewsDetailAPITestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="testuser")
+        # self.category = Category.objects.create(name="TestCategory")
+        # self.tag = Tag.objects.create(name="TestTag")
         self.news = News.objects.create(title="Testnews", author=self.user)
 
     def test_news_detail_endpoint(self):
@@ -41,8 +42,7 @@ class CategoryNewsAPITestCase(APITestCase):
     def test_category_news_endpoint(self):
         url = reverse("category_news", kwargs={"pk": self.category.pk})
         response = self.client.get(url)
-        #
-        # print(response.data["results"][0]["category"])
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 1)
         category_ids = response.data["results"][0]["category"]
