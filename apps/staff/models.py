@@ -105,6 +105,7 @@ class CenterManagement(models.Model):
         verbose_name_plural = 'CenterManagements'
 
 
+
 class Vacancy(models.Model):
     title = models.CharField(max_length=100)
     company = models.CharField(max_length=100)

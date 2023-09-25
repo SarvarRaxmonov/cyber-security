@@ -22,5 +22,5 @@ urlpatterns = [
         FrequentAskedQuestionsListView.as_view(),
         name="frequently_asked_questions_list",
     ),
-    path("message_tags_list/", MessageTagsListView.as_view(), name="message-tags-list/"),
+    path("message_tags_list/", MessageTagsListView.as_view(), name="message-tags-list"),
 ]

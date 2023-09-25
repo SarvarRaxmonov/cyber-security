@@ -1,8 +1,9 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from .models import Category, Document, Service, Site
+from .models import Category, Document, Message, Service, Site, Tag
 
 
 class SiteListViewTest(APITestCase):
@@ -52,11 +53,12 @@ class GetHackedCreateViewTest(APITestCase):
 
 class DocumentListViewTest(APITestCase):
     def setUp(self):
+        self.uploaded_file = SimpleUploadedFile("test_file.txt", b"Test content for the file", content_type="text/plain")
         self.category = Category.objects.create(name="nimadir")
         self.document = Document.objects.create(
             name="partner",
             category=self.category,
-            file="test_file.txt",
+            file=self.uploaded_file,
             number_order="bb2323",
             description="Partner site",
         )
@@ -70,4 +72,32 @@ class DocumentListViewTest(APITestCase):
     def test_list_documents_categries(self):
         response = self.client.get(reverse("documents-categories-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+
+
+class MessageTest(APITestCase):
+    def setUp(self):
+        data = {
+            "fullname": "Example",
+            "phone_number": "+998946643023",
+            "type": "question",
+            "text": "This is a test message.",
+        }
+        url = reverse("message")
+        response = self.client.post(url, data)
+        obj = Message.objects.get(fullname=data["fullname"])
+        tag1 = Tag.objects.create(name="tag1")
+        obj.tags.clear()
+        obj.tags.add(tag1)
+        obj.save()
+
+    def test_message_tags_list(self):
+        url = reverse("message-tags-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+
+    def test_frequent_asked_questions_list(self):
+        url_2 = reverse("frequently_asked_questions_list")
+        response = self.client.get(url_2)
         self.assertEqual(response.data["count"], 1)

@@ -21,26 +21,38 @@ class News(models.Model):
     title = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from="title", unique=True, blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField("Category", blank=True, null=True)
+    category = models.ManyToManyField("Category")
     content = RichTextUploadingField(blank=True, null=True)
     cover = models.ImageField(upload_to="covers/", blank=True, null=True)
     description = RichTextField(blank=True, null=True)
     type = models.CharField(max_length=20, choices=NewsTypes.choices, blank=True, null=True)
     is_recommended = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=StatusChoices.choices, blank=True, null=True)
-    tag = models.ManyToManyField("Tag", blank=True, null=True)
+    tag = models.ManyToManyField("Tag")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 class NewsView(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="views")
     device_id = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    def __str__(self):
+        return self.news.title
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
