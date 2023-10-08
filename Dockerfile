@@ -7,5 +7,5 @@ RUN pip install --upgrade pip
 RUN pip install -r ./requirements/base.txt
 RUN pip install -r ./requirements/production.txt
 COPY . .
-RUN ["chmod", "+x", "/home/app/web/entrypoint.sh"]
-ENTRYPOINT ["/home/app/web/entrypoint.sh"]
+RUN ["chmod", "+x", "entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
