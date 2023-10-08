@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:14
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_PORT=${DB_PORT}
+
+  web: &web
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8045
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./:/app
+#      - static_volume:/home/app/web/static
+#      - media_volume:/home/app/web/media
+      - static_volume:/home/app/web/static
+      - ./media:/home/app/web/media
+    env_file:
+      - .env
+    ports:
+      - 8045:8045
+    depends_on:
+      - db
+      - es
+
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  typesense_data:
